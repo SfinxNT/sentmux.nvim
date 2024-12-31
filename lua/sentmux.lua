@@ -5,14 +5,14 @@ M.send_command = function(command_to_sent)
 		pcall(vim.fn.system, { "tmux", "list-panes", "-F", "#{pane_id}", "-f", "#{pane_marked}", "-a" })
 
 	if not ok then
-		vim.api.nvim_out_write("Error: " .. marked_pane .. "\n")
+		vim.notify_once(marked_pane, vim.log.levels.ERROR)
 		return
 	end
 
 	marked_pane = vim.fn.trim(marked_pane)
 
 	if marked_pane == "" then
-		vim.api.nvim_out_write("No marked panes found\n")
+		vim.notify("No marked panes found", vim.log.levels.INFO)
 		return
 	end
 
